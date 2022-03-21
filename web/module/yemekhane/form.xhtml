@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <h:form id="y_ek-form">
+                <div class="form-group">
+                    <h:inputHidden value="#{yemekEkController.y_ek.ek_id}"/>
+                    <label for="inputName"> Yemek isim </label>
+                    <h:inputText id="yemek" value="#{yemekEkController.y_ek.ek_isim}"  validatorMessage="en az 3 en fazla 6" >
+                        <f:validateLength minimum="3" maximum="6" />
+                    </h:inputText>
+                    <h:message for="yemek" style="color: red" /> 
+                </div>
+                <div class="form-group">
+                    <h:commandButton rendered="#{loginController.user.u != 0}" styleClass="btn btn-info" value="Update" action="#{yemekEkController.update}">
+                        <f:ajax execute="y_ek-form" render="y_ek-form y_ek-table"/>
+                    </h:commandButton>
+                    <h:commandButton rendered="#{loginController.user.c != 0}" styleClass="btn btn-primary" value="Create" action="#{yemekEkController.create}">
+                        <f:ajax execute="y_ek-form" render="y_ek-form y_ek-table"/>
+                    </h:commandButton>
+                    <h:commandButton rendered="#{loginController.user.d != 0}" styleClass="btn btn-primary" value="Delelte" action="#{yemekEkController.delete}">
+                        <f:ajax execute="y_ek-form" render="y_ek-form y_ek-table"/>
+                    </h:commandButton>
+                    <h:commandButton rendered="#{loginController.user.r != 0}" styleClass="btn btn-secondary" value="Clear Form" action="#{yemekEkController.clearForm}">
+                        <f:ajax execute="@this" render="y_ek-form"/>
+                    </h:commandButton>
+                </div>
+            </h:form>
+</ui:composition>

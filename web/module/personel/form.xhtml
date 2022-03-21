@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="personel-form">
+        <div class="form-group">
+            <label for="selectPersoneltur">Personeltur</label>
+            <h:selectOneMenu styleClass="custom-select" id="selectPersoneltur" value="#{personelController.personel.personeltur}" converter="personelturConverter">
+                <f:selectItems value="#{personelController.personelturList}" var="personeltur" itemValue="#{personeltur}" itemLabel="#{personeltur.tur_ismi}" />
+            </h:selectOneMenu>
+        </div>
+        <div class="form-group">
+            <label for="inputIsim">İsim</label>
+            <h:inputText id="inputIsim" value="#{personelController.personel.isim}" styleClass="form-control" validator="#{personelController.validate}" />
+            <h:message for="inputIsim" style="color: red" />
+        </div>
+        <div class="form-group">
+            <label for="inputSoyad">Soyad</label>
+            <h:inputText id="inputSoyad" value="#{personelController.personel.soyad}" styleClass="form-control" validator="#{personelController.validate}" />
+            <h:message for="inputSoyad" style="color: red" />
+        </div>
+        <div class="form-group">
+            <label for="inputTc">Tc</label>
+            <h:inputText id="inputTc" value="#{personelController.personel.tc}" styleClass="form-control" validator="#{personelController.validate}" />
+            <h:message for="inputTc" style="color: red" />
+        </div>
+        <div class="form-group">
+            <div class="btn btn-group">
+                <h:commandButton rendered="#{loginController.user.c != 0}" action="#{personelController.create}" value="Create" styleClass="btn btn-primary">
+                    <f:ajax execute="personel-form" render="personel-form personel-table" />
+                </h:commandButton>
+                <h:commandButton rendered="#{loginController.user.u != 0}" action="#{personelController.update}" value="Update" styleClass="btn btn-secondary">
+                    <f:ajax execute="personel-form" render="personel-form personel-table" />
+                </h:commandButton>
+                <h:commandButton rendered="#{loginController.user.d != 0}" action="#{personelController.delete}" value="Delete" styleClass="btn btn-danger">
+                    <f:ajax execute="personel-form" render="personel-form personel-table" />
+                </h:commandButton>
+                <h:commandButton rendered="#{loginController.user.r != 0}" styleClass="btn btn-secondary" value="Clear form" action="#{personelController.clearForm}">
+                    <f:ajax execute="@this" render="personel-form"/>
+                </h:commandButton>
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="y_ek-table">
+           <pre> Page #{yemekEkController.page} of #{yemekEkController.pageCount} </pre>
+        <div class="btn-group">
+            <h:commandButton action="#{yemekEkController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+            <h:commandButton action="#{yemekEkController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+        </div>
+        <div>
+            Arama (Yemek isim Column )<h:inputText value="#{yemekEkController.searchTerm}" />
+			<h:commandButton action="#{yemekEkController.search()}" value="Search" />
+			<h:commandButton rendered="#{yemekEkController.searchTerm!=null}" action="#{yemekEkController.clearSearch()}" value="Clear Search" />
+        </div>
+        <h:dataTable styleClass="table table-striped table-hover" value="#{yemekEkController.yList}" var="yek">
+            <h:column>
+                <f:facet name="header"> Yemek id </f:facet>
+                    #{yek.ek_id}
+            </h:column>
+            <h:column>
+                <f:facet name="header"> Yemek isim </f:facet>
+                <h:commandLink action="#{yemekEkController.updateForm(yek)}" value=" #{yek.ek_isim}">
+                    <f:ajax execute="@this" render="y_ek-form"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</ui:composition>

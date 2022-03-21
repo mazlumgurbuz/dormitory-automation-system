@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form >
+        <div>
+            <h:form  enctype="multipart/form-data">
+                <pre> Page #{documentController.page} of #{documentController.pageCount} </pre>
+                <pre>-----------------------------------------------------------------------------</pre>
+                <div>
+                    <h:commandButton action="#{documentController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+                    <h:commandButton action="#{documentController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+
+                </div>
+                <pre>-----------------------------------------------------------------------------</pre>
+                <div>
+                    Doc Ara (Name Column) <h:inputText value="#{documentController.searchTerm}" />
+                    <h:commandButton action="#{documentController.search()}" value="Search" />
+                    <h:commandButton rendered="#{documentController.searchTerm!=null}" action="#{documentController.clearSearch()}" value="Clear Search" />
+                </div>
+            
+            </h:form>
+        </div>
+
+        <h:dataTable styleClass="table" value="#{documentController.documentList}" var="d">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{d.id}
+               <!-- <h:commandLink value="#{d.id}" action="#{documentController.updateForm(d)}" >
+                  <f:ajax execute="@this" render="file"  /> 
+                </h:commandLink>-->
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                    #{d.filePath}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Path</f:facet>
+                    #{d.fileName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Type</f:facet>
+                    #{d.fileType}
+            </h:column>
+
+            <h:column>
+
+                <h:panelGroup>
+                    <h:graphicImage width="100" value="/file/#{d.filePath}" />
+                </h:panelGroup>
+
+
+
+
+
+            </h:column> 
+
+
+
+
+        </h:dataTable>
+
+
+    </h:form>
+</ui:composition>

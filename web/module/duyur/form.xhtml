@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <div class="col-md-5">
+        <h:form id="duyuru-form">
+            <div class="form-group">
+                <label for="selectedduyurular">Duyuru Türü</label>
+                <h:selectOneMenu styleClass="custom-select" id="selectedduyurularduyurular" value="#{duyuruController.dyr.duyurlar_turu}" converter="duyuruConverter">
+                    <f:selectItems value="#{duyuruController.turList}" var="duyurlar_turu" itemValue="#{duyurlar_turu}" itemLabel="#{duyurlar_turu.isim}"/>
+                </h:selectOneMenu>
+            </div>
+            <div class="form-group">
+                <label for="inputIsim">Bilgi</label>
+                <h:inputText id="inputbilgi" value="#{duyuruController.dyr.bilgi}" styleClass="form-control"  validatorMessage="en az 3 fazla 6" >
+                    <f:validateLength minimum="3" maximum="6" />
+                </h:inputText>
+                <h:message for="inputbilgi" style="color: red" /> 
+            </div>
+            <div class="form-group">
+                <div class="btn-group">
+
+                    <h:commandButton rendered="#{loginController.user.c != 0}" action="#{duyuruController.create}" value="Create" styleClass="btn btn-primary" >
+                        <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
+                    </h:commandButton>
+                    <h:commandButton rendered="#{loginController.user.u != 0}" action="#{duyuruController.update}" value="Update" styleClass="btn btn-primary" >
+                        <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
+                    </h:commandButton>
+                    <h:commandButton rendered="#{loginController.user.d != 0}" action="#{duyuruController.delete}" value="Delete" styleClass="btn btn-danger" >
+                        <f:ajax execute="duyuru-form" render="duyuru-form duyuru-table" />
+                    </h:commandButton>
+                </div>
+            </div>
+        </h:form>
+    </div>
+
+
+
+
+</ui:composition>

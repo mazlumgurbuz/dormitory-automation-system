@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="duyuru-table">
+           <pre> Page #{duyuruController.page} of #{duyuruController.pageCount} </pre>
+        <div class="btn-group">
+            <h:commandButton action="#{duyuruController.previous()}" value="Previous" styleClass="btn btn-outline-dark" />
+            <h:commandButton action="#{duyuruController.next()}" value="Next" styleClass="btn btn-outline-dark" />
+        </div>
+        <div>
+            Arama <h:inputText value="#{duyuruController.searchTerm}" />
+			<h:commandButton action="#{duyuruController.search()}" value="Search" />
+			<h:commandButton rendered="#{duyuruController.searchTerm!=null}" action="#{duyuruController.clearSearch()}" value="Clear Search" />
+        </div>
+        <h:dataTable styleClass="table table-striped table-hover" value="#{duyuruController.dlist}" var="duyuru">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                <h:commandLink action="#{duyuruController.updateForm(duyuru)}" value="#{duyuru.duyuru_id}">
+                    <f:ajax execute="@this" render="duyuru-form" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bilgi</f:facet>
+                    #{duyuru.bilgi}
+            </h:column>           
+            <h:column>
+                <f:facet name="header">Duyuru Türü</f:facet>
+                    #{duyuru.duyurlar_turu.isim}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</ui:composition>
